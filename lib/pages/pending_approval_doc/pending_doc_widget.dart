@@ -176,7 +176,34 @@ class _PendingDocWidgetState extends State<PendingDocWidget> {
     );
   }
 
-  void showPrescriptionDetailsBottomSheet(Prescription prescription) {
+  void showPrescriptionDetailsBottomSheet(Prescription prescription) async {
+
+    try {
+      final Dio dio = Dio();
+      await dio.post(APPROVE_PRESCRIPTION, data: {
+        "doctorName": prescription.doctorName,
+  "patientName": prescription.patientName,
+  "age": prescription.patientAge,
+  "gender": prescription.patientGender,
+  "date": prescription.dateOfVisit?.toIso8601String(),
+  "Diagnosis": prescription.diagnosis,
+  "BP": prescription.bloodPressure,
+  "TEMP": prescription.temperature,
+  "Weight": prescription.weight,
+  "History": prescription.history,
+  "doctor": prescription.doctorEmpId,
+  "patient": prescription.patientMrNo,
+  "medicinesList":prescription.medicines,
+  "approved": prescription.approved,
+  "prescriptionId": prescription.id,
+  "seen": "false",
+  "unapproved_seen":"true"});
+    } catch (e) {
+      // Handle Dio errors or network failures
+      print('Error updating prescription seen status: $e');
+    }
+
+    
     TextEditingController patientNameController =
         TextEditingController(text: prescription.patientName);
     TextEditingController diagnosisController =
@@ -515,6 +542,7 @@ class _PendingDocWidgetState extends State<PendingDocWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          
           backgroundColor: Color.fromRGBO(0, 110, 194, 1),
           automaticallyImplyLeading: false,
           leading: InkWell(
@@ -556,15 +584,21 @@ class _PendingDocWidgetState extends State<PendingDocWidget> {
                     return ListTile(
                       onTap: () {
                         showPrescriptionDetailsBottomSheet(prescription);
+                        fetchPrescriptions();
                       },
                       title: Text(
                         prescription.patientName ??
                             '', // Directly using diagnosis with null-aware operator
-                        style: FlutterFlowTheme.of(context).titleLarge,
+                        style: FlutterFlowTheme.of(context).titleLarge.copyWith(
+                          color: prescription.unapproved_seen == "true" ? Colors.grey : Colors.black,
+                        ),
+                        
                       ),
                       subtitle: Text(
                         'Diagnosis: ${prescription.diagnosis} \nDate of Visit: ${prescription.dateOfVisit?.year.toString()}-${prescription.dateOfVisit?.month.toString()}-${prescription.dateOfVisit?.day.toString()}', // Adjusted to directly use properties
-                        style: FlutterFlowTheme.of(context).labelMedium,
+                        style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
+                          color: prescription.unapproved_seen == "true" ? Colors.grey : Colors.black,
+                        ),
                       ),
                       trailing: Icon(
                         Icons.arrow_forward_ios,

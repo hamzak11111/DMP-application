@@ -18,6 +18,7 @@ class Prescription {
   final List<Medicine>? medicines;
   final String approved;
   String seen;
+  String unapproved_seen;
   final int id;
 
   Prescription(
@@ -36,7 +37,8 @@ class Prescription {
       required this.medicines,
       required this.approved,
       required this.id,
-      required this.seen});
+      required this.seen,
+      required this.unapproved_seen});
 
   factory Prescription.fromJson(Map<String, dynamic> json) {
     var meds = json['medicines'] as List;
@@ -65,7 +67,8 @@ class Prescription {
         medicines: medicinesList,
         approved: json['approved'],
         id: json['prescriptionId'],
-        seen: json['seen']??"false");
+        seen: json['seen']??"false",
+        unapproved_seen: json['unapproved_seen']??"false");
   }
 
   Map<String, dynamic> toJson({

@@ -67,7 +67,7 @@ class _RecordsWidgetState extends State<RecordsWidget> {
         for (var presData in response.data['prescriptions']) {
           print(presData);
           Prescription prescription = Prescription.fromJson(presData);
-          if (prescription.approved == "True") {
+          if (prescription.approved == "False") {
             pres.add(prescription);
           }
         }

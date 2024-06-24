@@ -888,7 +888,7 @@ void fetchPrescriptions() async {
         );
       },
       child: Text(
-        'Approve\nPrescriptions',
+        'Unpproved\nPrescriptions',
         style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
           color: Color.fromRGBO(0, 110, 194, 1),
         ),
@@ -971,11 +971,13 @@ void fetchPrescriptions() async {
                     email: doctorProfile!.email)));
       },
       child: Text(
-        'Prescriptions',
+        'Approved\nPrescriptions',
         style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
           color: Color.fromRGBO(0, 110, 194, 1),
         ),
+        textAlign: TextAlign.center,
       ),
+      
     ),
 
   ],
