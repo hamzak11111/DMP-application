@@ -888,7 +888,7 @@ void fetchPrescriptions() async {
         );
       },
       child: Text(
-        'Unpproved\nPrescriptions',
+        'Unapproved\nPrescriptions',
         style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
           color: Color.fromRGBO(0, 110, 194, 1),
         ),
@@ -975,9 +975,7 @@ void fetchPrescriptions() async {
         style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
           color: Color.fromRGBO(0, 110, 194, 1),
         ),
-        textAlign: TextAlign.center,
       ),
-      
     ),
 
   ],

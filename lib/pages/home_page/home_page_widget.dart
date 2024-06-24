@@ -141,7 +141,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         for (var presData in response.data['prescriptions']) {
           // print(presData);
           Prescription prescription = Prescription.fromJson(presData);
-          if (prescription.approved == "True") {
+          if (prescription.approved == "False") {
             hasapprovedPrescriptions=true;
             pres.add(prescription);
             total++;
@@ -182,7 +182,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'You have $total unapproved prescription(s)',
+                'You have $total unapproved prescriptions',
                 style: TextStyle(color: Colors.white),
                 
               ),
